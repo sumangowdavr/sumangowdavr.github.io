@@ -750,6 +750,39 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; animation-iteration-count: 1 !important; }
     }
+  
+
+    /* =========  PROJECT VISUAL ANIMATIONS  ========= */
+    .system-visual[data-animated="true"] svg { overflow: visible; }
+    .system-visual .is-anim { will-change: transform, opacity; }
+    .system-visual .flow-line { stroke-dasharray: 6 6; animation: flowDash 1.6s linear infinite; }
+    .system-visual .pulse-glow { animation: signalPulse 1.8s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .system-visual .soft-bob { animation: softBob 2.8s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .system-visual .blink-role { animation: blinkRole 1.8s ease-in-out infinite; }
+    .system-visual .prob-live { animation: probShift 4.5s ease-in-out infinite; }
+    .system-visual .scan-box { transform-origin: center; transform-box: fill-box; }
+    .system-visual .cross-intent { transform-origin: center; transform-box: fill-box; }
+    @keyframes flowDash {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -24; }
+    }
+    @keyframes signalPulse {
+      0%, 100% { opacity: .55; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    @keyframes softBob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes blinkRole {
+      0%, 100% { opacity: .45; }
+      50% { opacity: 1; }
+    }
+    @keyframes probShift {
+      0%, 100% { opacity: .72; }
+      50% { opacity: 1; }
+    }
+
   </style>
 </head>
 <body>
@@ -910,39 +943,41 @@
         <li><span class="k">Lab</span><span class="v">ADAMS · UB</span></li>
       </ul>
     </div>
-    <div class="system-visual">
+    <div class="system-visual" data-animated="true" data-system="transport">
       <svg viewBox="0 0 500 375" preserveAspectRatio="xMidYMid meet">
         <!-- payload box (rectangle) -->
-        <rect class="bp-fill-a" x="170" y="150" width="160" height="80" rx="2"/>
-        <text x="180" y="195" class="bp-text-on">PAYLOAD · 2.4kg</text>
+        <g id="transport-payload" class="is-anim">
+          <rect class="bp-fill-a pulse-glow" x="170" y="150" width="160" height="80" rx="2"/>
+          <text x="180" y="195" class="bp-text-on">PAYLOAD · 2.4kg</text>
+        </g>
 
         <!-- three turtlebots (circles with arrows) -->
         <!-- robot 1 (top, human-led) -->
-        <g transform="translate(250,90)">
+        <g id="transport-r1" class="is-anim soft-bob" transform="translate(250,90)">
           <circle class="bp-amber" r="20"/>
           <line class="bp-amber" x1="0" y1="0" x2="0" y2="-14"/>
           <text x="-20" y="-28" class="bp-text">TB3_1 · LEAD</text>
         </g>
         <!-- robot 2 (left) -->
-        <g transform="translate(120,260)">
+        <g id="transport-r2" class="is-anim" transform="translate(120,260)">
           <circle class="bp-stroke" r="20"/>
           <line class="bp-stroke" x1="0" y1="0" x2="14" y2="-6"/>
           <text x="-22" y="36" class="bp-text">TB3_2 · PUSH</text>
         </g>
         <!-- robot 3 (right) -->
-        <g transform="translate(380,260)">
+        <g id="transport-r3" class="is-anim" transform="translate(380,260)">
           <circle class="bp-stroke" r="20"/>
           <line class="bp-stroke" x1="0" y1="0" x2="-14" y2="-6"/>
           <text x="-28" y="36" class="bp-text">TB3_3 · PREVENT</text>
         </g>
 
         <!-- force / spring links -->
-        <line class="bp-stroke bp-dash" x1="250" y1="110" x2="250" y2="150"/>
-        <line class="bp-stroke bp-dash" x1="140" y1="250" x2="180" y2="220"/>
-        <line class="bp-stroke bp-dash" x1="360" y1="250" x2="320" y2="220"/>
+        <line id="spring-1" class="bp-stroke bp-dash flow-line" x1="250" y1="110" x2="250" y2="150"/>
+        <line id="spring-2" class="bp-stroke bp-dash flow-line" x1="140" y1="250" x2="180" y2="220"/>
+        <line id="spring-3" class="bp-stroke bp-dash flow-line" x1="360" y1="250" x2="320" y2="220"/>
 
         <!-- force vector arrow on payload -->
-        <g>
+        <g id="transport-force" class="is-anim blink-role">
           <line class="bp-signal" x1="250" y1="190" x2="250" y2="290" stroke-dasharray="3 2"/>
           <polygon class="bp-signal" fill="#c7ff57" points="250,295 246,287 254,287"/>
           <text x="258" y="260" class="bp-text-on">F_net</text>
@@ -980,7 +1015,7 @@
         <li><span class="k">Compute</span><span class="v">RPi 5 + Coral</span></li>
       </ul>
     </div>
-    <div class="system-visual">
+    <div class="system-visual" data-animated="true" data-system="uav">
       <svg viewBox="0 0 500 375" preserveAspectRatio="xMidYMid meet">
         <!-- camera frustum -->
         <polygon class="bp-fill-a" points="120,60 120,120 380,280 380,220" opacity=".35"/>
@@ -990,7 +1025,7 @@
         <line class="bp-amber bp-dash" x1="380" y1="220" x2="380" y2="280"/>
 
         <!-- drone top-left -->
-        <g transform="translate(120,90)">
+        <g id="uav-drone" class="is-anim soft-bob" transform="translate(120,90)">
           <circle class="bp-stroke" r="16"/>
           <circle class="bp-stroke" cx="-12" cy="-12" r="5"/>
           <circle class="bp-stroke" cx="12"  cy="-12" r="5"/>
@@ -1002,22 +1037,22 @@
         </g>
 
         <!-- target bottom-right (bounding box) -->
-        <g transform="translate(370,250)">
-          <rect class="bp-signal" x="-18" y="-12" width="36" height="24" stroke-dasharray="3 2"/>
-          <circle class="bp-signal" r="2" fill="#c7ff57"/>
-          <text x="-24" y="28" class="bp-text-on">TARGET · 0.92</text>
+        <g id="uav-target" class="is-anim">
+          <rect class="bp-signal scan-box" x="-18" y="-12" width="36" height="24" stroke-dasharray="3 2"/>
+          <circle class="bp-signal pulse-glow" r="2" fill="#c7ff57"/>
+          <text x="-24" y="28" class="bp-text-on prob-live">TARGET · 0.92</text>
         </g>
 
         <!-- trajectory curve -->
-        <path class="bp-signal bp-dash" d="M 380 260 Q 300 340 200 330 T 60 260" fill="none"/>
+        <path id="uav-track-path" class="bp-signal bp-dash flow-line" d="M 380 260 Q 300 340 200 330 T 60 260" fill="none"/>
         <text x="150" y="355" class="bp-text">ESTIMATED PATH</text>
 
         <!-- crosshair in camera frame (inset) -->
-        <g transform="translate(400,80)">
+        <g id="uav-inset" class="is-anim" transform="translate(400,80)">
           <rect class="bp-stroke" x="0" y="0" width="80" height="60"/>
           <line class="bp-stroke bp-dash" x1="40" y1="0" x2="40" y2="60"/>
           <line class="bp-stroke bp-dash" x1="0" y1="30" x2="80" y2="30"/>
-          <rect class="bp-signal" x="42" y="32" width="14" height="10" stroke-dasharray="2 1"/>
+          <rect id="uav-inset-box" class="bp-signal scan-box" x="42" y="32" width="14" height="10" stroke-dasharray="2 1"/>
           <text x="0" y="-6" class="bp-text">IMG_PLANE</text>
         </g>
 
@@ -1054,7 +1089,7 @@
         <li><span class="k">Horizon</span><span class="v">1.5 s ahead</span></li>
       </ul>
     </div>
-    <div class="system-visual">
+    <div class="system-visual" data-animated="true" data-system="pedestrian">
       <svg viewBox="0 0 500 375" preserveAspectRatio="xMidYMid meet">
         <!-- region divider: sidewalk / road / sidewalk -->
         <line class="bp-dim" x1="0" y1="225" x2="500" y2="225"/>
@@ -1095,16 +1130,16 @@
         <circle fill="#5dc4e0" cx="210" cy="160" r="3.5"/>
 
         <!-- current pedestrian position (bold, amber) -->
-        <g transform="translate(255,160)">
-          <circle class="bp-amber" r="13" fill="rgba(232,160,76,.18)"/>
+        <g id="ped-current" class="is-anim cross-intent">
+          <circle class="bp-amber pulse-glow" r="13" fill="rgba(232,160,76,.18)"/>
           <circle fill="#e8a04c" r="4"/>
         </g>
         <text x="240" y="138" class="bp-text" fill="#e8a04c">PED &middot; t&#x2080;</text>
 
         <!-- predicted path 1: CROSS (curves down into crosswalk) -->
-        <path class="bp-signal bp-dash" d="M 255 160 Q 285 195 325 300" fill="none"/>
+        <path id="ped-cross-path" class="bp-signal bp-dash flow-line" d="M 255 160 Q 285 195 325 300" fill="none"/>
         <polygon fill="#c7ff57" points="325,306 320,294 330,294"/>
-        <text x="338" y="240" class="bp-text-on">CROSS &middot; 0.78</text>
+        <text id="ped-cross-prob" x="338" y="240" class="bp-text-on prob-live">CROSS &middot; 0.78</text>
 
         <!-- predicted path 2: STRAIGHT (continues along sidewalk) -->
         <path class="bp-stroke bp-dash" d="M 255 160 Q 320 160 395 160" fill="none" opacity=".5"/>
@@ -1112,7 +1147,7 @@
         <text x="310" y="145" class="bp-text" opacity=".75">STRAIGHT &middot; 0.22</text>
 
         <!-- ego vehicle: coming from right on road, driving left -->
-        <g transform="translate(440,275)">
+        <g id="ego-car" class="is-anim" transform="translate(440,275)">
           <rect class="bp-amber" x="-32" y="-13" width="40" height="26" rx="2"/>
           <rect fill="rgba(232,160,76,.12)" x="-27" y="-8" width="30" height="16"/>
           <circle fill="#e8a04c" cx="-22" cy="14" r="2.6"/>
@@ -1767,6 +1802,114 @@
     });
   }, { threshold: 0.2 });
   document.querySelectorAll('.system, .work-card, .fade-in, .signal-sec').forEach(el => io.observe(el));
+
+
+  /* ---- thesis system visual animations ---- */
+  (() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const q = (id) => document.getElementById(id);
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const ease = (t) => 0.5 - 0.5 * Math.cos(Math.PI * t);
+    const ping = (t) => 0.5 - 0.5 * Math.cos(t * Math.PI * 2);
+    const quad = (p0, p1, p2, t) => ({
+      x: (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x,
+      y: (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y,
+    });
+
+    const r1 = q('transport-r1');
+    const r2 = q('transport-r2');
+    const r3 = q('transport-r3');
+    const payload = q('transport-payload');
+    const force = q('transport-force');
+
+    const s1 = q('spring-1');
+    const s2 = q('spring-2');
+    const s3 = q('spring-3');
+
+    const uavTarget = q('uav-target');
+    const insetBox = q('uav-inset-box');
+
+    const pedCurrent = q('ped-current');
+    const egoCar = q('ego-car');
+    const pedProb = q('ped-cross-prob');
+
+    let start = null;
+    const loop = (ts) => {
+      if (!start) start = ts;
+      const t = (ts - start) / 1000;
+
+      if (payload && force && r2 && r3 && s1 && s2 && s3) {
+        const phase = (t % 6) / 6;
+        const boxX = lerp(0, 36, ease(phase));
+        const boxY = Math.sin(phase * Math.PI) * 8;
+        payload.setAttribute('transform', `translate(${boxX.toFixed(2)} ${boxY.toFixed(2)})`);
+        force.setAttribute('transform', `translate(${(boxX * 0.9).toFixed(2)} ${(boxY * 0.8).toFixed(2)}) scale(1 ${1 + 0.12 * Math.sin(phase * Math.PI)})`);
+
+        const r2x = lerp(0, 12, ease(phase));
+        const r2y = lerp(0, -10, ease(phase));
+        const r3x = lerp(0, -8, ease(phase));
+        const r3y = lerp(0, -4, ease(phase));
+        r2.setAttribute('transform', `translate(${120 + r2x} ${260 + r2y})`);
+        r3.setAttribute('transform', `translate(${380 + r3x} ${260 + r3y})`);
+
+        s1.setAttribute('x1', 250); s1.setAttribute('y1', 110);
+        s1.setAttribute('x2', 250 + boxX); s1.setAttribute('y2', 150 + boxY);
+        s2.setAttribute('x1', 140 + r2x); s2.setAttribute('y1', 250 + r2y);
+        s2.setAttribute('x2', 180 + boxX); s2.setAttribute('y2', 220 + boxY);
+        s3.setAttribute('x1', 360 + r3x); s3.setAttribute('y1', 250 + r3y);
+        s3.setAttribute('x2', 320 + boxX); s3.setAttribute('y2', 220 + boxY);
+      }
+
+      if (uavTarget && insetBox) {
+        const phase = (t % 8) / 8;
+        const path = [
+          {x: 370, y: 250},
+          {x: 312, y: 302},
+          {x: 238, y: 328},
+          {x: 152, y: 300},
+          {x: 94,  y: 258},
+          {x: 160, y: 220},
+          {x: 258, y: 198},
+          {x: 340, y: 226},
+        ];
+        const idx = Math.floor(phase * path.length);
+        const next = (idx + 1) % path.length;
+        const localT = phase * path.length - idx;
+        const x = lerp(path[idx].x, path[next].x, ease(localT));
+        const y = lerp(path[idx].y, path[next].y, ease(localT));
+        uavTarget.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+
+        const insetX = 34 + 14 * Math.sin(t * 1.4);
+        const insetY = 26 + 10 * Math.cos(t * 1.15);
+        insetBox.setAttribute('x', insetX.toFixed(2));
+        insetBox.setAttribute('y', insetY.toFixed(2));
+      }
+
+      if (pedCurrent && egoCar && pedProb) {
+        const phase = (t % 7) / 7;
+        const p = quad({x:255,y:160}, {x:285,y:195}, {x:325,y:300}, ease(phase));
+        pedCurrent.setAttribute('transform', `translate(${p.x.toFixed(2)} ${p.y.toFixed(2)})`);
+
+        const approach = phase < 0.55 ? phase / 0.55 : 1;
+        const hold = phase >= 0.55 && phase < 0.82;
+        const resume = phase >= 0.82 ? (phase - 0.82) / 0.18 : 0;
+        let carX = 440 - 82 * ease(approach);
+        if (hold) carX = 358;
+        if (resume) carX = lerp(358, 290, ease(resume));
+        egoCar.setAttribute('transform', `translate(${carX.toFixed(2)} 275)`);
+
+        const crossProb = 0.62 + 0.28 * ping(phase);
+        pedProb.textContent = `CROSS · ${crossProb.toFixed(2)}`;
+      }
+
+      requestAnimationFrame(loop);
+    };
+
+    requestAnimationFrame(loop);
+  })();
+
 </script>
 </body>
 </html>
