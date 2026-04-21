@@ -1904,8 +1904,183 @@
         pedProb.textContent = `CROSS · ${crossProb.toFixed(2)}`;
       }
 
+      animateSelectedWorks(t);
       requestAnimationFrame(loop);
     };
+
+
+    /* ---- selected works micro-animations ---- */
+    const workCards = [...document.querySelectorAll('.archive .work-card')];
+    const workSvgs = workCards.map(card => card.querySelector('svg'));
+
+    function setTranslate(el, x, y) {
+      if (!el) return;
+      el.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+    }
+
+    function animateSelectedWorks(t) {
+      /* 01 CLAW quadruped */
+      {
+        const svg = workSvgs[0];
+        if (svg) {
+          const legs = svg.querySelectorAll('g');
+          const body = svg.querySelector('rect.bp-amber');
+          const bodyFill = svg.querySelector('rect[fill^="rgba(232,160,76"]');
+          const head = svg.querySelector('circle.bp-amber');
+          const p = (t % 2.8) / 2.8;
+          const bob = Math.sin(p * Math.PI * 2) * 2.5;
+          const gait = [Math.sin(p * Math.PI * 2), Math.sin(p * Math.PI * 2 + Math.PI), Math.sin(p * Math.PI * 2 + Math.PI), Math.sin(p * Math.PI * 2)];
+          legs.forEach((leg, i) => leg.setAttribute('transform', `translate(0 ${(gait[i] * 3 + bob * 0.2).toFixed(2)})`));
+          if (body) body.setAttribute('y', (65 + bob).toFixed(2));
+          if (bodyFill) bodyFill.setAttribute('y', (69 + bob).toFixed(2));
+          if (head) head.setAttribute('cy', (60 + bob * 0.8).toFixed(2));
+        }
+      }
+
+      /* 02 Doggo uneven terrain */
+      {
+        const svg = workSvgs[1];
+        if (svg) {
+          const robot = svg.querySelector('g[transform^="translate(95,80)"]') || svg.querySelector('g');
+          const marks = svg.querySelector('.bp-signal');
+          const p = (t % 4.8) / 4.8;
+          const x = 90 + 82 * p;
+          const y = 84 - 10 * Math.sin(p * Math.PI * 1.2) + 3 * Math.sin(p * Math.PI * 4);
+          if (robot) robot.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)})`);
+          if (marks) marks.setAttribute('opacity', (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 2.4))).toFixed(2));
+        }
+      }
+
+      /* 03 Modular drone */
+      {
+        const svg = workSvgs[2];
+        if (svg) {
+          const groups = svg.querySelectorAll('g');
+          const air = groups[0];
+          const ground = groups[1];
+          const arrow = svg.querySelector('.bp-signal');
+          const p = (t % 3.6) / 3.6;
+          const blend = 0.5 + 0.5 * Math.sin(p * Math.PI * 2);
+          if (air) air.setAttribute('transform', `translate(${60 + 8 * blend} ${90 - 10 * blend}) rotate(${(-8 * blend).toFixed(2)})`);
+          if (ground) ground.setAttribute('transform', `translate(${180 - 8 * blend} ${90 + 6 * blend}) rotate(${(8 * blend).toFixed(2)})`);
+          if (arrow) arrow.setAttribute('opacity', (0.35 + 0.65 * blend).toFixed(2));
+        }
+      }
+
+      /* 04 Scooter */
+      {
+        const svg = workSvgs[3];
+        if (svg) {
+          const groups = svg.querySelectorAll('g');
+          const scooter = groups[0];
+          const goal = groups[1];
+          const p = (t % 4.5) / 4.5;
+          const x = 45 + 140 * p;
+          const y = 80 - 5 * Math.sin(p * Math.PI);
+          if (scooter) scooter.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)})`);
+          if (goal) goal.setAttribute('opacity', (0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * 3))).toFixed(2));
+        }
+      }
+
+      /* 05 Wheelchair */
+      {
+        const svg = workSvgs[4];
+        if (svg) {
+          const chair = svg.querySelector('g[transform^="translate(55,100)"]');
+          const goal = svg.querySelector('g[transform^="translate(215,100)"]');
+          const p = (t % 5.2) / 5.2;
+          const x = 55 + 155 * p;
+          const y = 100 - 36 * Math.sin(p * Math.PI);
+          if (chair) chair.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)})`);
+          if (goal) goal.setAttribute('opacity', (0.45 + 0.55 * (0.5 + 0.5 * Math.sin(t * 2.6))).toFixed(2));
+        }
+      }
+
+      /* 06 Frenet */
+      {
+        const svg = workSvgs[5];
+        if (svg) {
+          const car = svg.querySelector('rect.bp-amber');
+          const tn = svg.querySelector('g[transform^="translate(110,100)"]');
+          const p = (t % 4.2) / 4.2;
+          const x = 22 + 165 * p;
+          const y = 93 + 12 * Math.sin(p * Math.PI * 1.3) - 6 * Math.sin(p * Math.PI * 3);
+          if (car) { car.setAttribute('x', (x).toFixed(2)); car.setAttribute('y', (y).toFixed(2)); }
+          if (tn) tn.setAttribute('transform', `translate(${(x + 88).toFixed(2)},${(y + 7).toFixed(2)})`);
+        }
+      }
+
+      /* 07 Hybrid A* */
+      {
+        const svg = workSvgs[6];
+        if (svg) {
+          const start = svg.querySelector('g[transform^="translate(30,90)"]');
+          const goal = svg.querySelector('g[transform^="translate(195,90)"]');
+          const p = (t % 4.8) / 4.8;
+          const x = 38 + 152 * p;
+          const y = 90 + 9 * Math.sin(p * Math.PI * 2) - 12 * Math.sin(p * Math.PI);
+          if (start) start.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)})`);
+          if (goal) goal.setAttribute('opacity', (0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * 3.2))).toFixed(2));
+        }
+      }
+
+      /* 08 Graph SLAM */
+      {
+        const svg = workSvgs[7];
+        if (svg) {
+          const amber = svg.querySelector('circle.bp-amber');
+          const loop = svg.querySelector('line.bp-signal');
+          const pts = [[40,100],[80,80],[120,60],[160,80],[200,100],[180,130],[120,140],[60,130]];
+          const p = (t % 6.0) / 6.0;
+          const idx = Math.floor(p * pts.length) % pts.length;
+          const nxt = (idx + 1) % pts.length;
+          const lp = p * pts.length - idx;
+          const x = pts[idx][0] + (pts[nxt][0] - pts[idx][0]) * lp;
+          const y = pts[idx][1] + (pts[nxt][1] - pts[idx][1]) * lp;
+          if (amber) { amber.setAttribute('cx', x.toFixed(2)); amber.setAttribute('cy', y.toFixed(2)); }
+          if (loop) loop.setAttribute('opacity', (0.2 + 0.8 * (0.5 + 0.5 * Math.sin(t * 2.1))).toFixed(2));
+        }
+      }
+
+      /* 09 EKF */
+      {
+        const svg = workSvgs[8];
+        if (svg) {
+          const ellipses = svg.querySelectorAll('ellipse');
+          const points = svg.querySelectorAll('circle[fill="#5dc4e0"]');
+          const crosses = svg.querySelector('.bp-signal');
+          const base = [[60,100],[100,95],[140,98],[180,92]];
+          points.forEach((pt, i) => {
+            const dx = Math.sin(t * 1.5 + i) * 2.5;
+            const dy = Math.cos(t * 1.2 + i * 0.8) * 2;
+            pt.setAttribute('cx', (base[i][0] + dx).toFixed(2));
+            pt.setAttribute('cy', (base[i][1] + dy).toFixed(2));
+          });
+          ellipses.forEach((el, i) => {
+            const rxBase = [10,14,10,8][i];
+            el.setAttribute('rx', (rxBase + 1.5 * Math.sin(t * 1.4 + i)).toFixed(2));
+          });
+          if (crosses) crosses.setAttribute('opacity', (0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * 3.6))).toFixed(2));
+        }
+      }
+
+      /* 10 Particle filter */
+      {
+        const svg = workSvgs[9];
+        if (svg) {
+          const groups = svg.querySelectorAll('g');
+          const cloud = groups[1];
+          const best = groups[2];
+          const est = groups[3];
+          const p = (t % 5.0) / 5.0;
+          const dx = Math.sin(p * Math.PI * 2) * 8;
+          const dy = Math.cos(p * Math.PI * 2) * 5;
+          if (cloud) cloud.setAttribute('transform', `translate(${dx.toFixed(2)} ${dy.toFixed(2)})`);
+          if (best) best.setAttribute('transform', `translate(${(dx * 0.6).toFixed(2)} ${(dy * 0.6).toFixed(2)})`);
+          if (est) est.setAttribute('transform', `translate(${(132 + dx * 0.7).toFixed(2)},${(101 + dy * 0.7).toFixed(2)})`);
+        }
+      }
+    }
 
     requestAnimationFrame(loop);
   })();
