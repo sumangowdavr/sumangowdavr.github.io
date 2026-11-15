@@ -217,7 +217,8 @@
   .catch-video{position:relative;display:block;max-width:560px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#0a0d12;box-shadow:var(--shadow);text-decoration:none;}
   .catch-video video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease;}
   .catch-video:hover video{transform:scale(1.03);}
-  .catch-video .tv-label{position:absolute;left:12px;bottom:10px;}
+  .catch-video img{width:100%;height:100%;object-fit:contain;display:block}
+.catch-video .tv-label{position:absolute;left:12px;bottom:10px;}
   .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(1rem,2.5vw,1.6rem);}
   .news-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface,transparent);color:inherit;text-decoration:none;box-shadow:var(--shadow);transition:transform .3s ease,border-color .3s ease;}
   .news-card:hover{transform:translateY(-3px);border-color:var(--accent);}
@@ -454,9 +455,8 @@
 </a>
 <ul class="nav-links">
 <li><a href="#about">About</a></li>
-<li><a href="#highlights">Videos</a></li>
+<li><a href="#highlights">Recent</a></li>
 <li><a href="#thesis">Publications</a></li>
-<li><a href="#news">News</a></li>
 <li><a href="#work">Work</a></li>
 <li><a href="#field">Gallery</a></li>
 <li><a href="#trajectory">Trajectory</a></li>
@@ -518,7 +518,7 @@
 <div class="section-head reveal"><div class="index">Recent work / Nov 2026</div><h2 id="highlights-title">What I&rsquo;ve been building lately.</h2><p>This fall: flight tests of my onboard UAV tracker, and a weekend robot-arm build that ended up in the campus paper.</p></div>
 <article class="press-feature reveal" aria-label="In the news"><div class="press-mast"><span class="press-tag">In the news</span><span class="press-pub">The Spectrum</span><span class="press-date">University at Buffalo student newspaper · Nov 12, 2026</span></div><div class="press-body"><h3><a href="https://www.ubspectrum.com/article/2026/11/thirty-four-hours-into-the-hackosmos" target="_blank" rel="noopener">&ldquo;Thirty-four hours into the hackosmos&rdquo;</a></h3><p>At UB Hacking 2026, the 15th UB Hackathon (theme: Deep Space), about 360 students spent the weekend building in Davis Hall. My friends Jill Guerrero, Sujal Dharne, V. Narayan Kushwaha and I built RipeSense: a camera and sensor setup that checks how ripe fruit is, a robot arm that sorts it, and recipe ideas so produce gets used before it goes bad.</p><p>Ella Larsen&rsquo;s article in The Spectrum named our team and described the project. It was a fun weekend, and the robot arm work pulls from the same problem as my drone research: turning what a camera sees into a motion the robot can actually make.</p><div class="press-links"><a class="btn btn--solid" href="https://www.ubspectrum.com/article/2026/11/thirty-four-hours-into-the-hackosmos" target="_blank" rel="noopener">Read the article <span class="arr">&#8599;</span></a><a class="press-diary" href="blog/ub-hacking-2026.html">Photos, videos and the build diary &rarr;</a></div></div><a class="press-photo" href="blog/ub-hacking-2026.html"><img src="images/blog/ub-hacking-2026/team.webp" width="1600" height="1200" alt="Our RipeSense team with the robot-arm and fruit demo at UB Hacking 2026" loading="lazy"></a></article>
 <div class="highlight-feature reveal"><div class="highlight-screen"><figure><span class="feature-label">Start here · 40 seconds</span><video aria-label="CATCH outdoor yaw-tracking flight" controls="" playsinline="" poster="images/catch/catch-yaw-flight.webp" preload="none"><source src="videos/catch/catch-yaw-flight.mp4" type="video/mp4"/>Your browser cannot play this video. <a href="videos/catch/catch-yaw-flight.mp4">Open the recording</a>.</video><figcaption><strong>CATCH outdoor yaw-tracking flight.</strong> Ground footage with synchronized onboard comparison overlays.</figcaption></figure></div><div class="highlight-story"><span class="highlight-kicker">UAV tracking / CATCH</span><h3>One drone. Another drone. A camera between them.</h3><p>I’m studying how an onboard tracking system can keep a moving drone in view when detector results arrive late. Watch the X500 turn toward the target, then see the tracker through its own camera.</p><p class="highlight-note">Real flight footage · Raspberry Pi 5 + PX4<br/>Yaw tracking, with recorded comparison overlays</p><a class="btn btn--solid" href="projects/catch-uav-tracking.html">Explore the flight videos <span class="arr">→</span></a></div></div>
-<div class="highlight-followups reveal"><a class="highlight-link" href="projects/catch-uav-tracking.html#onboard"><img alt="Blue detector boxes and green CATCH boxes compared on the same onboard recording" height="520" loading="lazy" src="images/catch/catch-vs-yolo-1.webp" width="1280"/><div><span class="highlight-kicker">Through the camera</span><h3>See what changes between detections.</h3><p>Annotated comparisons from the recorded runs.</p><span class="highlight-arrow">Watch side by side →</span></div></a><a class="highlight-link" href="blog/ub-hacking-2026.html"><img alt="Our RipeSense team around the robot-arm demonstration" height="1200" loading="lazy" src="images/blog/ub-hacking-2026/team.webp" width="1600"/><div><span class="highlight-kicker">UB Hacking 2026 / In The Spectrum</span><h3>From the lab to the hackathon.</h3><p>RipeSense, our produce-sorting prototype, in photos and video.</p><span class="highlight-arrow">Read the build diary →</span></div></a></div></section>
+<div class="highlight-followups reveal"><a class="highlight-link" href="projects/catch-uav-tracking.html#onboard"><img alt="Blue detector boxes and green CATCH boxes compared on the same onboard recording" height="520" loading="lazy" src="images/catch/catch-vs-yolo-1.webp" width="1280"/><div><span class="highlight-kicker">Through the camera</span><h3>See what changes between detections.</h3><p>Annotated comparisons from the recorded runs.</p><span class="highlight-arrow">Watch side by side →</span></div></a><a class="highlight-link" href="projects/catch-uav-tracking.html#hardware"><img alt="The X500 chaser and the Parrot Anafi target flying in the netted enclosure" height="720" loading="lazy" src="images/catch/catch-chase-ground.webp" width="1280"/><div><span class="highlight-kicker">From the ground</span><h3>Watch the chaser follow the target.</h3><p>Both drones in the netted enclosure, filmed from the ground.</p><span class="highlight-arrow">Watch the flight →</span></div></a></div></section>
 
 <!-- ABOUT -->
 <section class="section" id="about">
@@ -589,7 +589,7 @@
 <p class="pub__venue">S. Gowda, A. Bhatt, S. Chowdhury · Robotics: Science and Systems (RSS) 2027 · in preparation</p>
 <p class="pub__abs">CATCH combines asynchronous detection, correlation tracking and motion correction on a Raspberry Pi 5 companion computer. The outdoor footage shows a PX4 X500 yaw-tracking a moving drone. On recorded-flight replay at 0.11 s detector delay, catch-up kept the box on the moving target in 95% of frames versus 66% without catch-up; this is an offline ablation, separate from the live flight demonstration.</p>
 <div class="pub__tags"><span>Onboard Perception</span><span>PX4</span><span>Raspberry Pi 5</span><span>YOLO / KCF</span><span>Flight Testing</span></div>
-<a aria-label="Open the CATCH flight videos" class="catch-video" href="projects/catch-uav-tracking.html"><img alt="Outdoor CATCH flight with onboard comparison overlays" loading="lazy" src="images/catch/catch-yaw-flight.webp"/><span class="tv-label">Open the flight videos →</span></a>
+<a aria-label="Open the CATCH onboard comparisons" class="catch-video" href="projects/catch-uav-tracking.html#onboard"><img alt="Onboard camera view: delayed detector box on the left, CATCH tracker box on the right" loading="lazy" src="images/catch/catch-vs-yolo-2.webp"/><span class="tv-label">Detector vs CATCH, onboard →</span></a>
 </div>
 <div class="pub__links"><a href="projects/catch-uav-tracking.html">All flight videos →</a></div>
 </li>
@@ -615,21 +615,15 @@
 <p class="pub__venue">Research project · ROS 2, Gazebo, Python and OpenCV · simulation study that led to CATCH</p>
 <p class="pub__abs">YOLO detection, KCF/MOSSE tracking and Kalman prediction with forecast-triggered detector updates and stale-data gating. In Gazebo with 160 ms modeled detector latency, adaptive tracking cut detector calls about 49% while keeping 99.2-100% target visibility, versus 63-64% for fixed-rate YOLO.</p>
 <div class="pub__tags"><span>IBVS</span><span>Detector Scheduling</span><span>Gazebo Evaluation</span></div>
+<div class="thesis-video" data-yt="3QJnteMlWrw">
+<div class="tv-poster" style="background-image:url('images/thesis/ibvs.jpg')"></div>
+<button aria-label="Play video" class="tv-play" type="button"><svg viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></button>
+<span class="tv-label">Watch the Gazebo demo</span>
+</div>
 </div>
 <div class="pub__links"><a href="https://youtu.be/3QJnteMlWrw" rel="noopener" target="_blank">Watch demo →</a></div>
 </li>
 </ol>
-</section>
-<!-- NEWS -->
-<section class="section" id="news">
-<div class="section-head reveal">
-<div class="index">News</div>
-<h2>Latest</h2>
-</div>
-<div class="news-grid reveal">
-<a class="news-card" href="projects/catch-uav-tracking.html"><div class="news-media"><img alt="Onboard comparison from the CATCH research recordings" loading="lazy" src="images/catch/catch-vs-yolo-1.webp"/></div><div class="news-body"><span class="news-date">Nov 2026 · Research</span><h3>CATCH flight videos</h3><p>Outdoor yaw-tracking footage, onboard comparisons and the hardware behind CATCH.</p><span class="news-more">Watch →</span></div></a>
-<a class="news-card" href="blog/ub-hacking-2026.html"><div class="news-media"><img alt="The RipeSense team with the produce-sorting prototype" loading="lazy" src="images/blog/ub-hacking-2026/team.webp"/></div><div class="news-body"><span class="news-date">Nov 2026 · Hackathon · In The Spectrum</span><h3>RipeSense at UB Hacking 2026</h3><p>Our team, the robot-arm and cabinet demos, and coverage in The Spectrum. A build diary from UB Hacking 2026.</p><span class="news-more">Read the blog →</span></div></a>
-</div>
 </section>
 <!-- WORK -->
 <section class="section" id="work">
